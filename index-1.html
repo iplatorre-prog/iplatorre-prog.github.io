@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ivan Pierre La Torre</title>
+<meta name="description" content="Personal profile of Ivan Pierre La Torre — Computer Science student, web developer, PC builder, rider, and weekend cook.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============ THEME TOKENS ============ */
+  :root{
+    --bg:#12161B;
+    --surface:#1B212A;
+    --surface-2:#222933;
+    --border:#2C3540;
+    --text:#ECE9E2;
+    --text-muted:#8B92A0;
+    --accent:#D98E4A;
+    --accent-2:#4FA8B5;
+    --font-display:"Big Shoulders Display", sans-serif;
+    --font-body:"IBM Plex Sans", sans-serif;
+    --font-mono:"IBM Plex Mono", monospace;
+    --transition:0.25s ease;
+  }
+
+  [data-theme="light"]{
+    --bg:#F5F2EC;
+    --surface:#ECEAE4;
+    --surface-2:#E2DFD8;
+    --border:#C8C4BB;
+    --text:#1A1A1A;
+    --text-muted:#6B6860;
+    --accent:#B86E2A;
+    --accent-2:#2A7F8A;
+  }
+
+  /* ============ RESET ============ */
+  *, *::before, *::after{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    transition:background var(--transition), color var(--transition);
+  }
+  a{ color:var(--accent); text-decoration:none; transition:color var(--transition); }
+  a:hover{ color:var(--accent-2); }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--accent-2); outline-offset:3px; }
+
+  .wrap{ max-width:880px; margin:0 auto; padding:0 24px; }
+
+  /* ============ THEME TOGGLE ============ */
+  .theme-toggle{
+    position:fixed;
+    top:20px;
+    right:24px;
+    z-index:100;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:8px 16px;
+    cursor:pointer;
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    color:var(--text-muted);
+    letter-spacing:0.08em;
+    transition:background var(--transition), border-color var(--transition), color var(--transition);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .theme-toggle:hover{ border-color:var(--accent-2); color:var(--accent-2); }
+  .toggle-icon{ font-size:1rem; }
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:88vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    border-bottom:1px solid var(--border);
+    padding-top:60px;
+  }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--accent-2);
+    margin-bottom:18px;
+  }
+  .name{
+    font-family:var(--font-display);
+    font-weight:800;
+    text-transform:uppercase;
+    font-size:clamp(3rem, 11vw, 7rem);
+    line-height:0.92;
+    letter-spacing:0.01em;
+    margin-bottom:20px;
+  }
+  .name span{ color:var(--accent); }
+  .tagline{
+    font-size:clamp(1.05rem, 2.4vw, 1.4rem);
+    color:var(--text-muted);
+    max-width:46ch;
+    margin-bottom:28px;
+  }
+  .status{ font-family:var(--font-mono); font-size:0.85rem; color:var(--text-muted); }
+  .status b{ color:var(--accent); font-weight:500; }
+
+  @media (prefers-reduced-motion:no-preference){
+    .hero > *{ opacity:0; animation:rise 0.7s ease forwards; }
+    .hero .eyebrow{ animation-delay:0.05s; }
+    .hero .name{ animation-delay:0.15s; }
+    .hero .tagline{ animation-delay:0.3s; }
+    .hero .status{ animation-delay:0.45s; }
+  }
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ============ SECTIONS ============ */
+  section{ padding:72px 0; border-bottom:1px solid var(--border); }
+
+  .section-label{
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  h2{
+    font-family:var(--font-display);
+    font-weight:800;
+    text-transform:uppercase;
+    font-size:clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom:28px;
+    letter-spacing:0.01em;
+  }
+  .bio{ font-size:1.08rem; max-width:62ch; }
+
+  /* ============ BUILD SHEET ============ */
+  .spec-table{ border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+  .spec-row{
+    display:grid;
+    grid-template-columns:170px 1fr;
+    gap:4px 20px;
+    padding:18px 20px;
+    background:var(--surface);
+    border-bottom:1px solid var(--border);
+    transition:background var(--transition);
+  }
+  .spec-row:last-child{ border-bottom:none; }
+  .spec-row:nth-child(even){ background:var(--surface-2); }
+  .spec-key{ font-family:var(--font-mono); font-size:0.78rem; letter-spacing:0.08em; color:var(--accent); align-self:start; padding-top:2px; }
+  .spec-value{ display:block; font-weight:600; margin-bottom:4px; }
+  .spec-note{ display:block; font-size:0.92rem; color:var(--text-muted); }
+  @media(max-width:560px){ .spec-row{ grid-template-columns:1fr; gap:6px; } }
+
+  /* ============ TECH STACK ============ */
+  .stack-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+    gap:14px;
+  }
+  .stack-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:20px 16px;
+    transition:border-color 0.2s ease, transform 0.2s ease, background var(--transition);
+    opacity:0;
+    transform:translateY(20px);
+  }
+  .stack-card.visible{
+    animation:card-in 0.5s ease forwards;
+  }
+  @keyframes card-in{
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .stack-card:hover{ border-color:var(--accent-2); transform:translateY(-3px); }
+  .stack-icon{ font-size:1.8rem; margin-bottom:10px; display:block; }
+  .stack-name{ font-weight:600; font-size:0.95rem; margin-bottom:4px; }
+  .stack-level{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    color:var(--text-muted);
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .bar-track{
+    height:4px;
+    background:var(--border);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    background:var(--accent);
+    border-radius:2px;
+    width:0%;
+    transition:width 1s ease;
+  }
+  .stack-card.visible .bar-fill{ width:var(--pct); }
+
+  /* ============ CONTACT FORM ============ */
+  .form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  @media(max-width:560px){ .form-grid{ grid-template-columns:1fr; } }
+
+  .field{ display:flex; flex-direction:column; gap:6px; }
+  .field.full{ grid-column:1 / -1; }
+
+  .field label{
+    font-family:var(--font-mono);
+    font-size:0.75rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .field input,
+  .field textarea{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:12px 14px;
+    color:var(--text);
+    font-family:var(--font-body);
+    font-size:0.95rem;
+    transition:border-color 0.15s ease, background var(--transition);
+    resize:none;
+  }
+  .field input:focus,
+  .field textarea:focus{
+    outline:none;
+    border-color:var(--accent-2);
+  }
+  .field textarea{ min-height:130px; }
+
+  .btn-send{
+    margin-top:6px;
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    padding:14px 28px;
+    font-family:var(--font-mono);
+    font-size:0.88rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:background 0.15s ease, transform 0.1s ease;
+  }
+  .btn-send:hover{ background:var(--accent-2); }
+  .btn-send:active{ transform:scale(0.97); }
+  .btn-send:disabled{ opacity:0.5; cursor:not-allowed; }
+
+  .form-status{
+    font-family:var(--font-mono);
+    font-size:0.82rem;
+    margin-top:10px;
+    min-height:1.2em;
+  }
+  .form-status.ok{ color:var(--accent-2); }
+  .form-status.err{ color:#e05c5c; }
+
+  /* ============ CONNECT ============ */
+  .ports{ display:flex; flex-wrap:wrap; gap:14px; margin-bottom:28px; }
+  .port{
+    font-family:var(--font-mono);
+    font-size:0.92rem;
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:14px 18px;
+    background:var(--surface);
+    color:var(--text);
+    transition:border-color 0.15s ease, color 0.15s ease, background var(--transition);
+  }
+  .port:hover{ border-color:var(--accent-2); color:var(--accent-2); }
+  .port .k{ color:var(--accent); margin-right:8px; }
+  .footnote{ font-family:var(--font-mono); font-size:0.78rem; color:var(--text-muted); }
+  footer.connect{ border-bottom:none; padding-bottom:56px; }
+</style>
+</head>
+<body>
+
+<!-- DARK / LIGHT TOGGLE -->
+<button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">
+  <span class="toggle-icon" id="toggleIcon">☀️</span>
+  <span id="toggleLabel">LIGHT MODE</span>
+</button>
+
+<!-- HERO -->
+<header class="hero wrap">
+  <p class="eyebrow">Student build — unit 001</p>
+  <h1 class="name">Ivan Pierre<br><span>La Torre</span></h1>
+  <p class="tagline">A student that loves adventuring and cooking.</p>
+  <p class="status">STATUS: <b>ONLINE</b> · currently compiling: React &amp; Python</p>
+</header>
+
+<!-- ABOUT -->
+<section class="about wrap" id="about">
+  <p class="section-label">// 01 — about</p>
+  <p class="bio">
+    I'm a Computer Science student passionate about web development. I enjoy building clean,
+    user-friendly applications and am currently learning React and Python. When I'm not coding,
+    I'm riding a motorcycle and going somewhere I want to be — and cooking is sometimes my hobby too.
+  </p>
+</section>
+
+<!-- BUILD SHEET -->
+<section class="build wrap" id="build">
+  <p class="section-label">// 02 — build sheet</p>
+  <h2>Components currently installed</h2>
+  <div class="spec-table">
+    <div class="spec-row">
+      <span class="spec-key">PROCESSOR</span>
+      <span class="spec-body">
+        <span class="spec-value">Computer Science (undergrad)</span>
+        <span class="spec-note">Currently overclocked on web development coursework.</span>
+      </span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">GRAPHICS</span>
+      <span class="spec-body">
+        <span class="spec-value">React + Python</span>
+        <span class="spec-note">Render pipeline for clean, user-friendly interfaces — still in active development.</span>
+      </span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">COOLING</span>
+      <span class="spec-body">
+        <span class="spec-value">Motorcycle rides</span>
+        <span class="spec-note">Resets the thermals after a long debugging session.</span>
+      </span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">CHASSIS</span>
+      <span class="spec-body">
+        <span class="spec-value">PC building</span>
+        <span class="spec-note">Comfortable inside a case — assembly, cable management, troubleshooting.</span>
+      </span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">POWER SUPPLY</span>
+      <span class="spec-body">
+        <span class="spec-value">Cooking</span>
+        <span class="spec-note">Weekend fuel for the next build session — sometimes literally.</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="stack wrap" id="stack">
+  <p class="section-label">// 03 — tech stack</p>
+  <h2>Skills &amp; Tools</h2>
+  <div class="stack-grid" id="stackGrid">
+    <div class="stack-card" style="--pct:55%">
+      <span class="stack-icon">⚛️</span>
+      <div class="stack-name">React</div>
+      <div class="stack-level">Learning</div>
+      <div class="bar-track"><div class="bar-fill"></div></div>
+    </div>
+    <div class="stack-card" style="--pct:60%">
+      <span class="stack-icon">🐍</span>
+      <div class="stack-name">Python</div>
+      <div class="stack-level">Learning</div>
+      <div class="bar-track"><div class="bar-fill"></div></div>
+    </div>
+    <div class="stack-card" style="--pct:75%">
+      <span class="stack-icon">🌐</span>
+      <div class="stack-name">HTML &amp; CSS</div>
+      <div class="stack-level">Comfortable</div>
+      <div class="bar-track"><div class="bar-fill"></div></div>
+    </div>
+    <div class="stack-card" style="--pct:50%">
+      <span class="stack-icon">☕</span>
+      <div class="stack-name">JavaScript</div>
+      <div class="stack-level">Learning</div>
+      <div class="bar-track"><div class="bar-fill"></div></div>
+    </div>
+    <div class="stack-card" style="--pct:80%">
+      <span class="stack-icon">🖥️</span>
+      <div class="stack-name">PC Building</div>
+      <div class="stack-level">Proficient</div>
+      <div class="bar-track"><div class="bar-fill"></div></div>
+    </div>
+    <div class="stack-card" style="--pct:70%">
+      <span class="stack-icon">🐙</span>
+      <div class="stack-name">Git &amp; GitHub</div>
+      <div class="stack-level">Learning</div>
+      <div class="bar-track"><div class="bar-fill"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section class="contact wrap" id="contact">
+  <p class="section-label">// 04 — send a message</p>
+  <h2>Get in touch</h2>
+  <form id="contactForm" action="https://formspree.io/f/xeebzgve" method="POST">
+    <div class="form-grid">
+      <div class="field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+      </div>
+      <div class="field full">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+      </div>
+    </div>
+    <button type="submit" class="btn-send" id="sendBtn">SEND MESSAGE ▸</button>
+    <p class="form-status" id="formStatus"></p>
+  </form>
+</section>
+
+<!-- CONNECT -->
+<footer class="connect wrap" id="connect">
+  <p class="section-label">// 05 — i/o panel</p>
+  <div class="ports">
+    <a class="port" href="mailto:iplatorre23110333@student.dmmmsu.edu.ph"><span class="k">EMAIL ▸</span>iplatorre23110333@student.dmmmsu.edu.ph</a>
+    <a class="port" href="https://github.com/iplatorre-prog" target="_blank" rel="noopener"><span class="k">GITHUB ▸</span>@iplatorre-prog</a>
+  </div>
+  <p class="footnote">Built with HTML &amp; CSS · version-controlled with Git · deployed on GitHub Pages.</p>
+</footer>
+
+<script>
+  /* ---- THEME TOGGLE ---- */
+  const btn = document.getElementById('themeBtn');
+  const icon = document.getElementById('toggleIcon');
+  const label = document.getElementById('toggleLabel');
+  const html = document.documentElement;
+
+  btn.addEventListener('click', () => {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    icon.textContent = isDark ? '🌙' : '☀️';
+    label.textContent = isDark ? 'DARK MODE' : 'LIGHT MODE';
+  });
+
+  /* ---- TECH STACK SCROLL ANIMATION ---- */
+  const cards = document.querySelectorAll('.stack-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  cards.forEach(card => observer.observe(card));
+
+  /* ---- CONTACT FORM ---- */
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('formStatus');
+  const sendBtn = document.getElementById('sendBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'SENDING...';
+    status.textContent = '';
+    status.className = 'form-status';
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        status.textContent = '✓ Message sent! I\'ll get back to you soon.';
+        status.classList.add('ok');
+        form.reset();
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      status.textContent = '✕ Something went wrong. Try emailing me directly.';
+      status.classList.add('err');
+    } finally {
+      sendBtn.disabled = false;
+      sendBtn.textContent = 'SEND MESSAGE ▸';
+    }
+  });
+</script>
+
+</body>
+</html>
