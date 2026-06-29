@@ -11,12 +11,13 @@
 <style>
   /* ============ THEME TOKENS ============ */
   :root{
-    --bg:#12161B;
-    --surface:#1B212A;
-    --surface-2:#222933;
-    --border:#2C3540;
+    --bg: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    --bg-fixed: #0f0c29;
+    --surface:rgba(255,255,255,0.07);
+    --surface-2:rgba(255,255,255,0.04);
+    --border:rgba(255,255,255,0.12);
     --text:#ECE9E2;
-    --text-muted:#8B92A0;
+    --text-muted:#9B96B0;
     --accent:#D98E4A;
     --accent-2:#4FA8B5;
     --font-display:"Big Shoulders Display", sans-serif;
@@ -26,26 +27,30 @@
   }
 
   [data-theme="light"]{
-    --bg:#F5F2EC;
-    --surface:#ECEAE4;
-    --surface-2:#E2DFD8;
-    --border:#C8C4BB;
-    --text:#1A1A1A;
-    --text-muted:#6B6860;
-    --accent:#B86E2A;
-    --accent-2:#2A7F8A;
+    --bg: linear-gradient(135deg, #e0c3fc, #8ec5fc, #d4f1f9);
+    --bg-fixed: #e0c3fc;
+    --surface:rgba(255,255,255,0.45);
+    --surface-2:rgba(255,255,255,0.3);
+    --border:rgba(0,0,0,0.1);
+    --text:#1A1A2E;
+    --text-muted:#555577;
+    --accent:#7B2FBE;
+    --accent-2:#1A6985;
   }
 
   /* ============ RESET ============ */
   *, *::before, *::after{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; }
   body{
-    background:var(--bg);
+    background: var(--bg-fixed);
+    background-image: var(--bg);
+    background-attachment: fixed;
+    background-size: cover;
     color:var(--text);
     font-family:var(--font-body);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
-    transition:background var(--transition), color var(--transition);
+    transition:background 0.4s ease, color var(--transition);
   }
   a{ color:var(--accent); text-decoration:none; transition:color var(--transition); }
   a:hover{ color:var(--accent-2); }
